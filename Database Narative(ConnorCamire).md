@@ -1,0 +1,12 @@
+Like the other two enhancements, I will be using my contract Java unit test project. This one already housed a script that desires a database. That is, it is about creating contacts, modifying contacts, preventing duplicate contacts, deleting contacts, etc. But, initially, there was no method of storing these contacts whatsoever, leading to all the contacts being lost upon reruns. The enhancement made to this are two separate things. One, adding a SQLite database which is stored in a local file, contacts.db, that can hold all the contacts and access and modify them so that they survive reruns.
+
+There is a database layer that defines contacts, which is a table whose columns match the contact module: contact ID, first name, last name, phone number, address. The contact ID is the primary key, which enforces uniqueness at the database level and matches the service rule that IDs must not collide.
+
+The SQLite utilizes CRUD operations corresponding with the standard CRUD: Create, Read, Update, Delete. different methods, such as insert, which runs when a contact is added, update, which runs when the user changes first name, last name, etc., delete runs when a contact is removed, select runs when the service loads each row to repopulate the memory after opening up the database file.
+
+The hash map in context service was not removed and the last name indexing for fast operations during a session is intact, but it will reload those structures from the database when the service is constructed and will write back after each change. 
+
+Keeping in line with the original project's goals of being around unit testing, a new unit test was added to check if contacts persist after creation. This functionality was also properly implemented into the program.
+
+This program originally had no direct functionality outside of the unit testing. For the database section, some functionality was added, mainly a menu that allowed users to enter, modify, delete, or view any contact in the database. So, not only were new unit tests added for this functionality, but the actual implementation was added itself so that someone can create, modify, and view contacts, and they will persist within the database file. Removing that file will cause the program to fail. Clearing that file will cause the list to be empty, and copying someone's instance of the contact database and replacing yours of it will give you their contacts.
+
